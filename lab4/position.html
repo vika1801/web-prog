@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1/0">
+    <title> Сопова Вика. Лабораторная 4</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <style>
+       div {
+        width: 300px;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+        background-color: antiquewhite;
+        border: 1px dotted darkolivegreen;
+        margin: 15px;
+       } 
+       .position-relative {
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s;
+       }
+       .position-relative:hover {
+            transform: translateY(-20px); 
+            z-index: 2;
+        }
+        .position-absolute {
+            position: absolute;
+            left: 300px;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+        .position-absolute:hover {
+            transform: scale(1.1);
+            background-color: lightcoral; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 3
+    </header>
+
+    <main>
+        <div>static</div>
+        <div>static</div>
+        <div class="position-relative">relative</div>
+        <div>static</div>
+        <div>static</div>
+        <div class="position-absolute">absolute</div>
+        <div>static</div>
+        <div>static</div>
+        <div>static</div>
+        <div>static</div>
+    </main>
+
+    <footer>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+</body>
+</html>
