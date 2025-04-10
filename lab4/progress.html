@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель прогресса</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .progress-container {
+            width: 300px; /* Ширина панели прогресса */
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .progress {
+            height: 30px;
+            width: 0;
+            background-color: #76c7c0;
+            transition: width 0.1s;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s;
+        }
+        .button:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .button:active {
+            box-shadow: none; /* Убираем тень при нажатии */
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <button class="button" id="holdButton">Нажмите и удерживайте</button>
+    </div>
+
+    <script>
+        const button = document.getElementById('holdButton');
+        const progress = document.getElementById('progress');
+        let interval;
+
+        button.addEventListener('mousedown', () => {
+            button.classList.add('active');
+            progress.style.width = '0%'; // Сбрасываем прогресс
+            let width = 0;
+            interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    progress.style.width = width + '%';
+                }
+            }, 50); // Увеличиваем прогресс каждые 50 мс
+        });
+
+        button.addEventListener('mouseup', () => {
+            clearInterval(interval);
+            button.classList.remove('active');
+        });
+
+        button.addEventListener('mouseleave', () => {
+            clearInterval(interval);
+            button.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
