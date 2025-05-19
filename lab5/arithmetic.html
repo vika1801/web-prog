@@ -71,6 +71,25 @@
             let result = a/b
             alert(a+ ' / ' + b + ' = ' + result);
         }
+        function showStepen() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
+
+            if (a==0 && b==0){
+                alert('Оба поля не могут быть нулями')
+                return;
+            }
+            if (isNaN(a) || isNaN(b)){
+                alert('Введите числовое значение')
+                return;
+            }
+
+            let result = a**b
+            alert(a+ ' в степени ' + b + ' = ' + result);
+        }
     </script>
     <style>
         .message{
@@ -102,6 +121,7 @@
         <div class="message" onclick="showRazn()">Найти разность чисел</div>
         <div class="message" onclick="showUmn()">Найти произведение чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+        <div class="message" onclick="showStepen()">Найти возведение числа 1 в степень числа 2</div>
         <div class="message" onclick="showAuthor()"> Узнать, кто автор страницы</div>
     </main>
 
