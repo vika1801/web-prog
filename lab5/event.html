@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 5</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <script>
+        function showCoords(){
+            let x = this.event.x;
+            let y = this.event.y;
+
+            let div = document.getElementById('block');
+            let text = '<b>x</b> = ' + x + 'px<br><b>y</b> = ' + y + 'px';
+            
+            if (this.event.ctrlKey) {
+                div.style.color = 'red';
+                text += '<br>Нажата клавиша Ctrl';
+            } else {
+                div.style.color = 'black';
+            }
+            
+            if (this.event.altKey) {
+                div.style.backgroundColor = 'green';
+                div.style.border = '2px solid green';
+                text += '<br>Нажата клавиша Alt';
+            } else {
+                div.style.backgroundColor = 'paleturquoise';
+                div.style.border = '1px solid black';
+            }
+            
+            if (this.event.shiftKey) {
+                div.style.backgroundColor = 'yellow';
+                div.style.boxShadow = '3px 3px 5px gray';
+                text += '<br>Нажата клавиша Shift';
+            } else {
+                div.style.boxShadow = 'none';
+            }
+            
+            div.innerHTML = text;
+        }
+    </script>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: paleturquoise;
+            border: 1px solid black;
+            cursor: crosshair;
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+
+    <main>
+        <div id="block" onmousemove="showCoords()"></div>
+    </main>
+
+    <footer>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
