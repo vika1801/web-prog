@@ -5,7 +5,7 @@ body {
     margin: 10px;
 }
 main{
-    margin: 10px 20px 45px;
+    margin: 10px 20px 80px;
 }
 a{
     color: black;
@@ -54,7 +54,7 @@ h1{
 
 footer{
     background-color: rgb(104, 129, 153);
-    padding: 10px;
+    padding: 5px;
     font-size: 16pt;
     text-align: right;
     position: fixed;
