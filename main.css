@@ -8,6 +8,7 @@ body {
 a{
     color: black;
     text-decoration: none;
+    transition: 1s 2s;
 }
 
 a:link{
@@ -22,6 +23,7 @@ a:visited{
 a:hover{
     color: red;
     text-decoration: underline;
+    transition: 0.3s;
 }
 
 a:active{
