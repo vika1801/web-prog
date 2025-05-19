@@ -30,3 +30,22 @@ a:active{
     color: blue;
     opacity: 0.3;
 }
+
+.menu{
+    border: 4px solid rgb(147, 199, 247);
+    border-radius: 10px;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-size: 15pt;
+}
+.menu:hover{
+    background-color: rgb(147, 199, 247);
+    color: white;
+    box-shadow: 0 0 15px;
+}
+h1{
+    text-align: center;
+    color:  rgb(30, 74, 115);
+}
