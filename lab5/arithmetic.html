@@ -90,6 +90,14 @@
             let result = a**b
             alert(a+ ' в степени ' + b + ' = ' + result);
         }
+
+        function changeOutput( buttonNum, backColor, textColor, Border){
+            let output = document.getElementById('output');
+            output.innerHTML = 'Нажата кнопка ' + buttonNum;
+            output.style.backgroundColor = backColor;
+            output.style.color = textColor;
+            output.style.border = Border;
+        }
     </script>
     <style>
         .message{
@@ -107,6 +115,11 @@
         header, footer{
             cursor: pointer;
         }
+        #output{
+            border: 1px solid;
+            width: 300px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
@@ -123,6 +136,15 @@
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
         <div class="message" onclick="showStepen()">Найти возведение числа 1 в степень числа 2</div>
         <div class="message" onclick="showAuthor()"> Узнать, кто автор страницы</div>
+
+        <div>
+            <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'white', 'blue', '3px solid blue')">
+            <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'pink', 'white', '2px dotted white')">
+            <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'pink', 'yellow', '5px solid yellow')">
+            <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'orange', 'white','2px dotted white')">
+        </div>
+
+        <div id="output"></div>
     </main>
 
     <footer ondblclick="footer()">
