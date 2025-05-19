@@ -4,3 +4,27 @@ body {
     font-family: Arial;
     margin: 10px;
 }
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+a:link{
+    color: palevioletred;
+    text-decoration: none;
+}
+
+a:visited{
+    color: green;
+}
+
+a:hover{
+    color: red;
+    text-decoration: underline;
+}
+
+a:active{
+    color: blue;
+    opacity: 0.3;
+}
