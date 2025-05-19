@@ -25,6 +25,24 @@
         function footer(){
             alert('Приветствую вас на моей странице!')
         }
+        function showRazn() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
+            let result = a - b;
+            alert('Разность ' + a + ' и ' + b + ' равна ' + result);
+        }
+        function showUmn() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
+            let result = a * b;
+            alert('Произведение ' + a + ' и ' + b + ' равно ' + result);
+        }
     </script>
     <style>
         .message{
@@ -53,6 +71,8 @@
         <label>Первое число: <input type="number" value="5154" id="numberA"></label> <br>
         <label>Второе число: <input type="number" value="7891" id="numberB"> <br> <br>
         <div class="message" onclick="showSum()">Найти сумму чисел</div>
+        <div class="message" onclick="showRazn()">Найти разность чисел</div>
+        <div class="message" onclick="showUmn()">Найти произведение чисел</div>
         <div class="message" onclick="showAuthor()"> Узнать, кто автор страницы</div>
     </main>
 
