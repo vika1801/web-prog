@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 5</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <script>
+        function Summa(){
+            let c1 = document.getElementById('c1');
+            let c2 = document.getElementById('c2');
+            let c3 = document.getElementById('c3');
+            let c4 = document.getElementById('c4');
+
+            let a = parseInt(c1.value);
+            let b = parseInt(c2.value);
+            let c = parseInt(c3.value);
+            let d = parseInt(c4.value);
+            let summa = a*100 + b*80 + c*150 + d*300;
+            let output = document.getElementById('output');
+            output.innerHTML = 'Общая цена: ' + summa + 'р';
+        }
+        function clearCart(){
+            document.getElementById('c1').value = '';
+            document.getElementById('c2').value = '';
+            document.getElementById('c3').value = '';
+            document.getElementById('c4').value = '';
+            document.getElementById('output').innerHTML = '';
+        }
+    </script>
+    <style>
+        .cart{
+            margin: 0 auto;
+            border: 2px solid brown;
+            border-radius: 5px;
+            width: 300px;
+            height: 400px;
+            padding: 5px 40px;
+            color: brown;
+        }
+        h2{
+            text-align: center;
+
+        }
+        input{
+            width: 150px;
+        }
+        .button{
+            width: 90px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+
+    <main>
+        <div class="cart">
+            <h2>Корзина товаров</h2>
+            <p>Яблоки (100р/шт):</p>
+            <input type="number" id="c1" min="0" placeholder="Введите кол-во яблок">
+            <p>Груши (80р/шт):</p>
+            <input type="number" id="c2" min="0" placeholder="Введите кол-во груш">
+            <p>Апельсины (150р/шт):</p>
+            <input type="number" id="c3" min="0" placeholder="Введите кол-во апельсинов">
+            <p>Дыни (300р/шт):</p>
+            <input type="number" id="c4" min="0" placeholder="Введите кол-во дынь"><br><br>
+            <input class="button" type="button" value="Рассчитать" onclick="Summa()">
+            <input class="button" type="button" value="Очистить" onclick="clearCart()">
+            <div id="output"></div>
+        </div>
+    </main>
+
+    <footer ondblclick="footer()">
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
