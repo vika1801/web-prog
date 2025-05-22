@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 5</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+     <style>
+        .result-box {
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .positive {
+            color: #28a745;
+        }
+        .negative {
+            color: #dc3545;
+        }
+        .neutral {
+            color: #000;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+    <main>
+        <button onclick="getEuroExchangeRate()">Получить курс евро</button>
+        <div id="result" class="result-box"></div>
+        <a href="https://www.cbr-xml-daily.ru/">Курсы ЦБ РФ в XML и JSON, API</a>
+    </main>
+    <footer>
+            &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+        </footer>
+        <script>
+        function getEuroExchangeRate() {
+            const url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const euro = data.Valute.EUR;
+                    const resultDiv = document.getElementById('result');
+                    
+                    // Рассчет разницы
+                    const difference = euro.Value - euro.Previous;
+                    const diffFormatted = difference.toFixed(4);
+                    
+                    // Форматирование даты
+                    const currentDate = new Date(data.Date).toLocaleDateString('ru-RU');
+                    const previousDate = new Date(data.PreviousDate).toLocaleDateString('ru-RU');
+
+                    // Определение стиля для разницы
+                    let diffClass = 'neutral';
+                    if (difference > 0) diffClass = 'positive';
+                    if (difference < 0) diffClass = 'negative';
+
+                    // Формирование HTML
+                    resultDiv.innerHTML = `
+                        <p>Дата запроса: ${currentDate}</p>
+                        <p>Текущий курс: ${euro.Value.toFixed(4)} руб</p>
+                        <p>Предыдущий курс (${previousDate}): ${euro.Previous.toFixed(4)} руб</p>
+                        <p class="${diffClass}">Изменение: ${diffFormatted} руб</p>
+                        ${difference > 0 ? '🡅 Курс вырос' : difference < 0 ? '🡇 Курс снизился' : '— Без изменений'}
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerHTML = 
+                        `<p class="negative">Ошибка получения данных: ${error.message}</p>`;
+                });
+             }
+         </script>
+</body>
+</html>
