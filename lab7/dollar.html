@@ -8,32 +8,56 @@
     <link rel="icon" href="favicon-32x32.png">
     <link rel="icon" href="favicon-16x16.ico">
     <link rel="stylesheet" href="../main.css">
+    <script src="dollar-data.js"></script>
 </head>
 <body>
     <header>
-        <h1>Курс доллара ЦБ РФ</h1>
+        <h1>Курс доллара</h1>
     </header>
-
     <main>
-        <button id="show-rates">Показать курс</button>
-        <table id="exchange-table">
-            <thead>
-                <tr>
-                    <th>Дата</th>
-                    <th>Курс</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <div id="dollar.js"></div>
+        <button onclick="showExchange()">Показать курс доллара</button>
+        <table border="1" id="dollar-table"></table>
+        <div id="average-result"></div>
     </main>
-
     <footer>
-        <p>Данные с <a href="https://cbr.ru" target="_blank">cbr.ru</a></p>
-        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+        <p>Сопова Вика, ФБИ-31, 2025</p>
     </footer>
+    <script>
+        function showExchange() {
+            
+            const table = document.getElementById('dollar-table');
+            const averageResult = document.getElementById('average-result');
 
-    <script src="dollar-data.js"></script>
-    <script src="dollar.js"></script>
+            table.innerHTML = '';
+            averageResult.innerHTML = '';
+            
+            const headerRow = document.createElement('tr');
+            const headerDay = document.createElement('th');
+            const headerRate = document.createElement('th');
+            headerDay.textContent = 'День';
+            headerRate.textContent = 'Курс, руб';
+            headerRow.appendChild(headerDay);
+            headerRow.appendChild(headerRate);
+            table.appendChild(headerRow);
+
+            for (let i = 0; i < exchange.length; i++) {
+                const row = document.createElement('tr');
+                const dayCell = document.createElement('td');
+                const rateCell = document.createElement('td');
+
+                dayCell.textContent = `День ${i + 1}`;
+                rateCell.textContent = exchange[i].toFixed(2);
+                row.appendChild(dayCell);
+                row.appendChild(rateCell);
+                table.appendChild(row);
+            }
+
+            const sum = exchange.reduce((acc, val) => acc + val, 0);
+            const average = sum / exchange.length;
+            averageResult.innerHTML = `
+                <p>Средний курс: ${average.toFixed(2)} руб</p>
+            `;
+        }
+    </script>
 </body>
 </html>
