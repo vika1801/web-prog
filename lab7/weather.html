@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+    <header>
+        <h1>Прогноз погоды</h1>
+    </header>
+
+    <main>
+        <button onclick="getWeather()">Получить прогноз</button>
+        <div id="weather-output"></div>
+    </main>
+
+    <footer>
+        <p>Данные предоставлены <a href="https://open-meteo.com/">Open-Meteo.com</a></p>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+    <script src="weather.js"></script>
+
+</body>
+</html>
