@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 7</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+     <script src="stock-data.js"></script>
+    <style>
+        .positive { color: green; }
+        .negative { color: red; }
+        table { 
+            border-collapse: collapse; 
+            margin: 20px 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        td, th { 
+            border: 1px solid #ddd; 
+            padding: 8px;
+            text-align: center;
+        }
+        .stats { 
+            margin-top: 15px; 
+            padding: 10px; 
+            border: 1px solid #ccc;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>Котировки акций компании "Центральный телеграф"</h1>
+    </header>
+    <main>
+        <button onclick="showStockQuotes()" id="quoteBtn">Показать котировки</button>
+        <div id="tableContainer"></div>
+    </main>
+    <footer>
+        <p>© Сопова Вика, ФБИ-31, 2025</p>
+    </footer>
+
+    <script>
+        function showStockQuotes() {
+            const dates = [
+                "01.05.2024", "02.05.2024", "03.05.2024", 
+                "06.05.2024", "07.05.2024", "08.05.2024", 
+                "09.05.2024", "10.05.2024", "13.05.2024", 
+                "14.05.2024"
+            ];
+            
+            const prices = [
+                10500, 10750, 10800, 
+                10600, 10900, 11050, 
+                11200, 11100, 11350, 
+                11500
+            ];
+        const table = document.createElement('table');
+            const headerRow = table.insertRow();
+            headerRow.innerHTML = '<th>Дата</th><th>Цена, руб</th><th>Изменение</th>';
+
+            // Заполняем данные
+            for (let i = 0; i < dates.length; i++) {
+                const row = table.insertRow();
+                const dateCell = row.insertCell();
+                const priceCell = row.insertCell();
+                const diffCell = row.insertCell();
+
+                dateCell.textContent = dates[i];
+                priceCell.textContent = prices[i].toLocaleString();
+
+                if (i === 0) {
+                    diffCell.textContent = '—';
+                } else {
+                    const diff = prices[i] - prices[i-1];
+                    diffCell.textContent = diff;
+                    diffCell.className = diff > 0 ? 'positive' : diff < 0 ? 'negative' : '';
+                }
+            }
+             const sum = prices.reduce((a, b) => a + b, 0);
+            const avg = (sum / prices.length).toFixed(0);
+            const max = Math.max(...prices);
+            const min = Math.min(...prices);
+
+            // Выводим статистику
+            const statsDiv = document.createElement('div');
+            statsDiv.className = 'stats';
+            statsDiv.innerHTML = `
+                <p>Среднее значение: ${avg} руб</p>
+                <p>Минимальное значение: ${min.toLocaleString()} руб</p>
+                <p>Максимальное значение: ${max.toLocaleString()} руб</p>
+            `;
+
+            // Обновляем DOM
+            const container = document.getElementById('tableContainer');
+            container.innerHTML = '';
+            container.appendChild(table);
+            container.appendChild(statsDiv);
+
+            // Блокируем кнопку
+            document.getElementById('quoteBtn').disabled = true;
+        }
+    </script>
+    </body>
+</html>
