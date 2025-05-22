@@ -1,0 +1,39 @@
+!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 7</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <script>
+        function addNewBlock() {
+            let newBlock = document.createElement('div');
+            newBlock.style.bacgroundcolor = 'green';
+            newBlock.style.height = '40px';
+            newBlock.style.width = '200px';
+            newBlock.style.margin = '10px';
+            newBlock.style.backgroundColor = 'yellow';
+            newBlock.style.border = '2px green';
+
+            document.querySelector('main').appendChild(newBlock);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+
+    <main> 
+        <button onclick="addNewBlock()">Добавить блок</button>
+    </main>
+
+    <footer ondblclick="footer()">
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
