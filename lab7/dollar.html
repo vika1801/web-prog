@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 7</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+    <header>
+        <h1>Курс доллара ЦБ РФ</h1>
+    </header>
+
+    <main>
+        <button id="show-rates">Показать курс</button>
+        <table id="exchange-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Курс</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="dollar.js"></div>
+    </main>
+
+    <footer>
+        <p>Данные с <a href="https://cbr.ru" target="_blank">cbr.ru</a></p>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+    <script src="dollar-data.js"></script>
+    <script src="dollar.js"></script>
+</body>
+</html>
