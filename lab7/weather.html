@@ -1,88 +1,68 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8>">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сопова Вика. Лабораторная 3</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon-32x32.png">
-    <link rel="icon" href="favicon-16x16.ico">
+    <title>Прогноз погоды</title>
     <link rel="stylesheet" href="../main.css">
     <style>
         .weather-container {
             margin: 20px;
             padding: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            max-width: 500px;
         }
-        .temperature {
-            font-size: 18px;
+        .weather-time {
             margin: 10px 0;
             padding: 8px;
-            background-color: #f0f8ff;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
+            background-color: #f8f9fa;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Прогноз погоды в Новосибирске</h1>
+        <h1>Прогноз температуры в Новосибирске</h1>
     </header>
-    
     <main>
-        <div class="weather-container">
-            <button onclick="getWeather()">Получить прогноз</button>
-            <div id="weatherResults">
-                <div class="temperature" id="morning">8:00: —</div>
-                <div class="temperature" id="noon">12:00: —</div>
-                <div class="temperature" id="evening">20:00: —</div>
-            </div>
-        </div>
+        <button onclick="loadWeather()">Показать температуру</button>
+        <div id="weatherResult" class="weather-container"></div>
     </main>
-
+    <footer>
+        <p>Данные предоставлены <a href="https://open-meteo.com/">Open-Meteo</a></p>
+    </footer>
     <script>
-        function getWeather() {
+        async function loadWeather() {
             const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
             
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const times = data.hourly.time;
-                    const temps = data.hourly.temperature_2m;
-                    const today = new Date().toISOString().split('T')[0];
-
-                    const targetHours = ['08', '12', '20'];
-                    targetHours.forEach(hour => {
-                        const index = times.findIndex(t => 
-                            t.startsWith(today) && t.endsWith(`${hour}:00`)
-                        );
-                        
-                        if (index !== -1) {
-                            const tempElement = document.getElementById(
-                                hour === '08' ? 'morning' :
-                                hour === '12' ? 'noon' : 'evening'
-                            );
-                            tempElement.textContent = 
-                                `${hour}:00 — ${temps[index]}°C`;
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Ошибка:', error);
-                    alert('Не удалось получить данные о погоде');
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                // Получаем текущую дату в формате YYYY-MM-DD
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Ищем температуру для 8:00, 12:00, 20:00
+                const times = data.hourly.time;
+                const temps = data.hourly.temperature_2m;
+                
+                let resultHTML = '<h3>Температура сегодня:</h3>';
+                [8, 12, 20].forEach(hour => {
+                    const timeIndex = times.findIndex(t => t === `${today}T${hour.toString().padStart(2, '0')}:00`);
+                    if (timeIndex !== -1) {
+                        resultHTML += `
+                            <div class="weather-time">
+                                ${hour}:00 — ${temps[timeIndex]}°C
+                            </div>
+                        `;
+                    }
                 });
+                
+                document.getElementById('weatherResult').innerHTML = resultHTML;
+                
+            } catch (error) {
+                document.getElementById('weatherResult').innerHTML = 
+                    '<p style="color: red;">Ошибка загрузки данных</p>';
+            }
         }
     </script>
 </body>
