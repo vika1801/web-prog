@@ -3,28 +3,87 @@
 <head>
     <meta charset="UTF-8>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прогноз погоды</title>
+    <title>Сопова Вика. Лабораторная 3</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon-32x32.png">
     <link rel="icon" href="favicon-16x16.ico">
     <link rel="stylesheet" href="../main.css">
+    <style>
+        .weather-container {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+        .temperature {
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Прогноз погоды</h1>
+        <h1>Прогноз погоды в Новосибирске</h1>
     </header>
-
+    
     <main>
-        <button onclick="getWeather()">Получить прогноз</button>
-        <div id="weather-output"></div>
+        <div class="weather-container">
+            <button onclick="getWeather()">Получить прогноз</button>
+            <div id="weatherResults">
+                <div class="temperature" id="morning">8:00: —</div>
+                <div class="temperature" id="noon">12:00: —</div>
+                <div class="temperature" id="evening">20:00: —</div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>Данные предоставлены <a href="https://open-meteo.com/">Open-Meteo.com</a></p>
-        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
-    </footer>
+    <script>
+        function getWeather() {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const times = data.hourly.time;
+                    const temps = data.hourly.temperature_2m;
+                    const today = new Date().toISOString().split('T')[0];
 
-    <script src="weather.js"></script>
-
+                    const targetHours = ['08', '12', '20'];
+                    targetHours.forEach(hour => {
+                        const index = times.findIndex(t => 
+                            t.startsWith(today) && t.endsWith(`${hour}:00`)
+                        );
+                        
+                        if (index !== -1) {
+                            const tempElement = document.getElementById(
+                                hour === '08' ? 'morning' :
+                                hour === '12' ? 'noon' : 'evening'
+                            );
+                            tempElement.textContent = 
+                                `${hour}:00 — ${temps[index]}°C`;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Не удалось получить данные о погоде');
+                });
+        }
+    </script>
 </body>
 </html>
