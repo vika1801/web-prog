@@ -11,81 +11,138 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .card-header {
+            background-color: #ffc0cb;
+        }
+        .counter-badge {
+            min-width: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        НГТУ, ФБ, Лабораторная работа 8
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="fs-4 mb-0">НГТУ, ФБ, Лабораторная работа 8</h1>
+        </div>
     </header>
 
-    <main>
+    <main class="container my-4">
         <div id="app">
-            <h1 :title="messageRus">{{ message }}</h1>
-            <p>Счётчик: {{ counter }}</p>
-            <button @click="incCounter" v-if="counter < 10">++</button>
-            <button @click="decCounter" v-if="counter > 0">--</button>
-            <hr>
-
-            <h2>Пользователь:</h2>
-            <div>Имя: {{ user.name }}</div>
-            <div>Возраст: {{ user.age }}</div>
-            <div>Телефон: {{user.tel}} </div>
-            <hr>
-
-            <div class="card" style="width: 18rem">,
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center">
+                    <i class="bi bi-chat-heart me-2"></i>
+                    <h1 class="fs-5 mb-0" :title="messageRus">{{ message }}</h1>
+                </div>
                 <div class="card-body">
-                    <h2 class="card-title">Цветы</h2>
-                    <ul class="list-group">
-                        <li v-for="flower in flowers" class="list-group-item">
-                            {{ flower}} <button @click="edit(id, flower)">?</button>
-                        </li>
-                    </ul>
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="me-3">Счётчик:</span>
+                        <span class="badge bg-primary counter-badge fs-6">{{ counter }}</span>
+                        <div class="btn-group ms-auto">
+                            <button @click="incCounter" :disabled="counter >= 10" class="btn btn-success">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                            <button @click="decCounter" :disabled="counter <= 0" class="btn btn-danger">
+                                <i class="bi bi-dash-lg"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr>
 
-            <h2>Цветы</h2>
-            <table class="table table-danger">
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Редактировать</th>
-                    </tr>
-                </thead>
-                <tr v-for="(flower, id) in flowers">
-                    <td>
-                        <span v-if="flower === null">загружается...</span>
-                        <span v-else>{{ flower }}</span>
-                    </td>
-                    <td> 
-                        <button @click="edit(id, flower)" class="btn btn-primary" v-if="flower !== null">
-                            <i class="bi bi-pencil-square"></i></button>
-                        <div class="spinner-border" role="status" v-if="flower === null"></div>
-                    </td>
-                </tr>
-            </table>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-person me-2"></i>
 
-            <h2>Калькулятор</h2>
-            <div class="row g-5">
-                <div class="col-auto">
-                    <input type="number" v-model="a" class="form-control">
+                    <span>Пользователь</span>
                 </div>
-                <div class="col-auto">
-                    +
-                </div>
-                <div class="col-auto">   
-                    <input type="number" v-model="b" class="form-control">
-                </div>
-                <div class="col-auto">
-                    <button @click="sum" class="btn btn-primary">=</button>
-                </div>
-                <div class="col-auto">
-                    <span class="badge text-bg-primary fs-5">{{ result }}</span>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-4 fw-bold">Имя:</div>
+                        <div class="col-md-8">{{ user.name }}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 fw-bold">Возраст:</div>
+                        <div class="col-md-8">{{ user.age }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 fw-bold">Телефон:</div>
+                        <div class="col-md-8">{{ user.tel }}</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-flower1 me-2"></i>
+
+            <span>Цветы</span>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-danger">
+                            <tr>
+                                <th>Название</th>
+                                <th class="text-end">Редактировать</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(flower, id) in flowers" :key="id">
+                                <td>
+                                    <span v-if="flower === 'Сохранение...'">
+                                        <span class="text-muted">Сохранение...</span>
+                                        <div class="spinner-border spinner-border-sm text-secondary ms-2" role="status"></div>
+                                    </span>
+                                    <span v-else>{{ flower }}</span>
+                                </td>
+                                <td class="text-end"> 
+                                    <button @click="edit(id, flower)" class="btn btn-sm btn-outline-primary" :disabled="flower === 'Сохранение...'">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-calculator me-2"></i>
+
+            <span>Калькулятор</span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <input type="number" v-model.number="a" class="form-control form-control-lg">
+                        </div>
+                        <div class="col-auto">
+                            <span class="fs-4">+</span>
+                        </div>
+                        <div class="col-auto">   
+                            <input type="number" v-model.number="b" class="form-control form-control-lg">
+                        </div>
+                        <div class="col-auto">
+                            <button @click="sum" class="btn btn-primary btn-lg px-4">
+                                <i class="bi bi-equals"></i>
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <span class="badge text-bg-primary fs-3 p-3">{{ result }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    <footer class="bg-light py-3 mt-1">
+        <div class="container text-center">
+            &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+        </div>
     </footer>
 
     <script>
