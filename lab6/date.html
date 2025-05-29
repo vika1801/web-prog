@@ -40,6 +40,25 @@
                 container.appendChild(element);
             });
         }
+
+        function changeColors() {
+            const header = document.getElementsByTagName('header')[0];
+            const rgb = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+            header.style.color = rgb;
+        }
+
+        let timerNum;
+
+        function startChangeColors() {
+            changeColors();
+            setInterval(changeColors, 1000);
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('stop-btn').disabled = false;
+        }
+
+        function stopChangeColors() {
+            clearInterval(timerNum);
+        }
     </script>
     <style>
         #current-date {
@@ -71,6 +90,10 @@
         <div id="current-date"></div>
          <h3>Дата и время в различных локалях:</h3>
         <div id="locale-dates"></div> 
+        <div>
+            <button onclick="startChangeColors()" id="start-btn">Старт</button>
+            <button onclick="stopChangeColors()" id="stop-btn">Стоп</button>
+        </div>
     </main>
 
     <footer>
