@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 6</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        #diag {
+            display: flex;           
+            flex-direction: column;  
+            height: 500px;           
+            gap: 8px;                
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #f8f8f8;
+        }
+        .bar-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 10px;
+            box-sizing: border-box;
+            color: white;
+            font-weight: bold;
+            min-width: 30px;         
+            transition: width 0.5s;
+            height: 40px;            
+        }
+        .bar-label {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showDiagram() {
+            let data = [36, 86, 55, 28, 92, 60, 41, 17, 9, 43];
+            let colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', 
+                          '#FF9F40', '#8AC926', '#1982C4', '#6A4C93', '#F15BB5'];
+            let bars = document.getElementsByClassName('bar');
+            const diagWidth = document.getElementById('diag').clientWidth;
+            const maxData = Math.max(...data);
+            const k = diagWidth / maxData * 0.9;
+            for(let i = 0; i < data.length; i++) {
+                bars[i].style.width = k*data[i] + 'px';
+                bars[i].style.backgroundColor = colors[i];
+                bars[i].innerText = data[i];
+            }
+        }
+        
+        window.onload = showDiagram;
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+    </header>
+
+    <main>
+       <div id="diag">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+       </div>
+    </main>
+
+    <footer>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
