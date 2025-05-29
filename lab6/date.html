@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 6</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <script>
+        function showDate() {
+            let out = document.getElementById('current-date');
+            let today = new Date();
+            out.innerHTML = today.toLocaleDateString('ru-RU');
+            const container = document.getElementById('locale-dates');
+            const locales = [
+                { name: 'Английская (Великобритания)', code: 'en-GB' },
+                { name: 'Немецкая (Германия)', code: 'de-DE' },
+                { name: 'Французская (Франция)', code: 'fr-FR' },
+                { name: 'Японская (Япония)', code: 'ja-JP' },
+                { name: 'Арабская (Египет)', code: 'ar-EG' }
+            ];
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                weekday: 'long'
+            };
+            container.innerHTML = '';
+            locales.forEach(locale => {
+                const element = document.createElement('div');
+                element.className = 'locale-date';
+                const dateStr = today.toLocaleString(locale.code, options);
+                element.innerHTML = `<strong>${locale.name}:</strong> ${dateStr}`;
+                
+                container.appendChild(element);
+            });
+        }
+    </script>
+    <style>
+        #current-date {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            text-align: center;
+            border-left: 5px solid #3498db;
+        }
+        .locale-date {
+            margin-top: 15px;
+            padding: 10px;
+            border-left: 3px solid #3498db;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body onload="showDate()">
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+    </header>
+
+    <main>   
+        <div id="current-date"></div>
+         <h3>Дата и время в различных локалях:</h3>
+        <div id="locale-dates"></div> 
+    </main>
+
+    <footer>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
