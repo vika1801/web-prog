@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сопова Вика. Лабораторная 6</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .diagram-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 400px;
+            gap: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            position: relative;
+        }
+        .day-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+        }
+        .temp-bar {
+            width: 80%;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .min-temp {
+            background-color: #3498db;
+        }
+        .max-temp {
+            background-color: #e74c3c;
+        }
+        .day-label {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .selected .min-temp,
+        .selected .max-temp {
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.8);
+        }
+        .day-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            min-height: 60px;
+        }
+        .day-input {
+            padding: 8px;
+            width: 60px;
+            margin-right: 10px;
+        }
+        .highlight-btn {
+            padding: 8px 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .bars-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100%;
+            gap: 2px;
+        }
+        .temp-value {
+            font-size: 10px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+    </header>
+
+    <main>
+        <h1>Температуры за месяц</h1>
+        <div>
+            <label for="day-input">Номер дня (1-30):</label>
+            <input type="number" id="day-input" class="day-input" min="1" max="30" value="1">
+            <button onclick="highlightDay()" class="highlight-btn">Показать</button>
+        </div>
+        <div class="diagram-container" id="diagram"></div>
+        <div class="day-info" id="day-info">Выберите день для отображения температур</div>
+    </main>
+
+    <footer>
+        &copy; Сопова Вика, ФБИ-31, 2 курс, 2025
+    </footer>
+
+    <script>
+        const temperatures = [];
+        for (let i = 0; i < 30; i++) {
+            const minTemp = Math.floor(Math.random() * 16) - 10;
+            const maxTemp = Math.floor(Math.random() * (20 - minTemp)) + minTemp + 1;
+            temperatures.push({ min: minTemp, max: maxTemp });
+        }
+
+        const maxMonthTemp = Math.max(...temperatures.map(t => t.max));
+        const minMonthTemp = Math.min(...temperatures.map(t => t.min));
+        const tempRange = maxMonthTemp - minMonthTemp;
+
+        function renderDiagram() {
+            const container = document.getElementById('diagram');
+            container.innerHTML = '';
+
+            temperatures.forEach((temp, index) => {
+                const day = index + 1;
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column';
+                dayColumn.id = `day-${day}`;
+                dayColumn.dataset.min = temp.min;
+                dayColumn.dataset.max = temp.max;
+
+                const barsContainer = document.createElement('div');
+                barsContainer.className = 'bars-container';
+                
+                const minHeight = temp.min >= minMonthTemp 
+                    ? ((temp.min - minMonthTemp) / tempRange) * 90 + 5 
+                    : 5;
+                
+                const maxHeight = temp.max >= minMonthTemp 
+                    ? ((temp.max - minMonthTemp) / tempRange) * 90 + 5 
+                    : 5;
+
+                const maxValue = document.createElement('div');
+                maxValue.className = 'temp-value';
+                maxValue.textContent = `${temp.max}°C`;
+                
+                const maxBar = document.createElement('div');
+                maxBar.className = 'temp-bar max-temp';
+                maxBar.style.height = `${maxHeight}%`;
+                maxBar.title = `День ${day}: макс: ${temp.max}°C`;
+               
+                const minValue = document.createElement('div');
+                minValue.className = 'temp-value';
+                minValue.textContent = `${temp.min}°C`;
+               
+                const minBar = document.createElement('div');
+                minBar.className = 'temp-bar min-temp';
+                minBar.style.height = `${minHeight}%`;
+                minBar.title = `День ${day}: мин: ${temp.min}°C`;
+                barsContainer.appendChild(maxValue);
+                barsContainer.appendChild(maxBar);
+                barsContainer.appendChild(minValue);
+                barsContainer.appendChild(minBar);
+
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.textContent = day;
+
+                dayColumn.appendChild(barsContainer);
+                dayColumn.appendChild(dayLabel);
+                container.appendChild(dayColumn);
+            });
+        }
+
+        function highlightDay() {
+            document.querySelectorAll('.day-column').forEach(column => {
+                column.classList.remove('selected');
+            });
+            
+            const day = parseInt(document.getElementById('day-input').value);
+            if (day >= 1 && day <= 30) {
+                const dayColumn = document.getElementById(`day-${day}`);
+                if (dayColumn) {
+                    dayColumn.classList.add('selected');
+                    
+                    dayColumn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    document.getElementById('day-info').innerHTML = `
+                        <strong>День ${day}</strong><br>
+                        Минимальная температура: ${dayColumn.dataset.min}°C<br>
+                        Максимальная температура: ${dayColumn.dataset.max}°C
+                    `;
+                }
+            } else {
+                document.getElementById('day-info').innerHTML = 'Введите число от 1 до 30';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', renderDiagram);
+    </script>
+</body>
+</html>
