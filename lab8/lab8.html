@@ -80,6 +80,10 @@
 
             <span>Цветы</span>
                 </div>
+                     <button @click="addFlower" class="btn btn-sm btn-success">
+                        <i class="bi bi-plus-circle me-1"></i> Добавить
+                    </button>
+                </div>
                 <div class="card-body p-0">
                     <table class="table table-hover mb-0">
                         <thead class="table-danger">
@@ -88,6 +92,9 @@
                                 <th class="text-end">Редактировать</th>
                             </tr>
                         </thead>
+                        <button @click="removeFlower(id)" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </button>
                         <tbody>
                             <tr v-for="(flower, id) in flowers" :key="id">
                                 <td>
@@ -180,6 +187,17 @@
                 sum() {
                     this.result = this.a + this.b;
                 },
+                addFlower() {
+                    const newName = prompt('Введите название нового цветка:');
+                    if (newName !== null && newName.trim() !== '') {
+                        this.flowers.push(newName);
+                    }
+                },
+                removeFlower(id) {
+                    if (confirm(`Вы уверены, что хотите удалить цветок "${this.flowers[id]}"?`)) {
+                        this.flowers.splice(id, 1);
+                    }
+                }
             }
         }).mount('#app');
 
