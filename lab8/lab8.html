@@ -18,6 +18,7 @@
     <main>
         <div id="app">
             <h1 :title="messageRus">{{ message }}</h1>
+            <p>Счётчик: {{ counter }}</p>
         </div>
     </main>
 
@@ -31,6 +32,7 @@
                 return {
                     message: 'Hello!',
                     messageRus: 'Привет!',
+                    counter: 1,
                 }
             },
         }).mount('#app');
