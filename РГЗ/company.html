@@ -1,81 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>О компании | МКПАО ЮМГ</title>
-  <link rel="stylesheet" href="..styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>ЮМГ - О компании</title>
+    <link rel="stylesheet" href="..styles.css">
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <img src="https://bcs-express.ru/design/_bcs_common/img/logo/logo-bcs.svg" alt="Логотип">
-        <h1>МКПАО ЮМГ (GEMC)</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">О компании</a></li>
-          <li><a href="news.html">Новости</a></li>
-          <li><a href="currency.html">Курс валют</a></li>
-          <li><a href="contacts.html">Контакты</a></li>
-          <li><a href="video.html">Видео</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Фиксированное меню -->
+    <header class="fixed-header">
+        <div class="logo">
+            <img src="https://bcs-express.ru/static/images/logo.svg" alt="ЮМГ">
+            <span>ЮМГ</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><a href="index.html">О компании</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="currency.html">Курс валют</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="video.html">Видео</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <section class="about">
-      <h2 class="section-title">О компании</h2>
-      
-      <div class="card">
-        <h3>Основная информация</h3>
-        <p><strong>МКПАО ЮМГ</strong> (Тикер: GEMC) - ведущая компания в сфере управления активами и инвестициями.</p>
-        <p>Год основания: <u>2005</u></p>
-        <p>Основатели: 
-          <em>Иванов А.П.</em>, 
-          <em>Петров С.М.</em>, 
-          <em>Сидорова Е.В.</em>
-        </p>
-        <img src="https://via.placeholder.com/800x400?text=Штаб-квартира+компании" alt="Штаб-квартира" style="width:100%; margin:20px 0;">
-      </div>
+    <!-- Контент страницы -->
+    <main>
+        <section class="company-info">
+            <h1>МКПАО ЮМГ</h1>
+            <img src="https://bcs-express.ru/static/images/gemc/gemc-logo.png" alt="Логотип ЮМГ">
+            <p><strong>Год основания:</strong> 2005</p>
+            <p><em>Ключевые направления деятельности:</em></p>
+            <ul>
+                <li>Инвестиции в технологии</li>
+                <li>Финансовые услуги</li>
+                <li>Управление активами</li>
+            </ul>
+            
+            <h2>История компании</h2>
+            <p>Компания основана в 2005 году как стартап в сфере IT. Сегодня ЮМГ входит в <u>ТОП-20</u> технологических компаний России. В 2020 году провела IPO на Московской бирже (тикер GEMC).</p>
+            
+            <h2>Достижения</h2>
+            <p>Победитель премии <a href="#">"Компания года 2022"</a> в номинации "Инновации". Рыночная капитализация превысила ₽50 млрд в 2023 году.</p>
+            
+            <img src="https://bcs-express.ru/static/images/gemc/office.jpg" alt="Офис ЮМГ">
+        </section>
+    </main>
 
-      <div class="card">
-        <h3>Направления деятельности</h3>
-        <ul>
-          <li>Управление инвестиционными портфелями</li>
-          <li>Корпоративные финансы</li>
-          <li>Консалтинговые услуги</li>
-          <li>Риск-менеджмент</li>
-          <li>Технологические решения для финансового рынка</li>
-        </ul>
-        <p>Подробнее о наших услугах вы можете узнать на <a href="https://bcs-express.ru" target="_blank">официальном сайте партнера</a>.</p>
-      </div>
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="to-top">↑</a>
 
-      <div class="card">
-        <h3>История развития</h3>
-        <p>Компания основана в 2005 году как небольшой инвестиционный фонд. За 18 лет работы мы превратились в одного из лидеров рынка с активами под управлением более <strong>120 млрд рублей</strong>.</p>
-        <p>Ключевые этапы развития:</p>
-        <ol>
-          <li>2008 - Выход на международный рынок</li>
-          <li>2012 - Публичное размещение акций (IPO)</li>
-          <li>2016 - Запуск собственной технологической платформы</li>
-          <li>2020 - Приобретение компании "Финансовые решения"</li>
-          <li>2023 - Выход в топ-5 управляющих компаний РФ</li>
-        </ol>
-        <img src="https://via.placeholder.com/800x300?text=График+роста+активов" alt="Рост активов" style="width:100%; margin:20px 0;">
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2023 МКПАО ЮМГ (GEMC). Все права защищены.</p>
-  </footer>
-
-  <div id="scrollToTop">↑</div>
-  
-  <script src="scripts/main.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
