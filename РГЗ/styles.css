@@ -1,0 +1,136 @@
+/* Reset и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  padding-top: 70px; /* Отступ для фиксированного хедера */
+}
+
+/* Фиксированный хедер */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #0d3b66 0%, #1a508b 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 15px 5%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.logo h1 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+nav a {
+  color: #e6f1ff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+nav a.active {
+  background-color: #ff6b00;
+  color: white;
+}
+
+/* Основной контент */
+main {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 5%;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  color: #0d3b66;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #ff6b00;
+}
+
+/* Кнопка "Наверх" */
+#scrollToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #ff6b00;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+
+#scrollToTop:hover {
+  transform: translateY(-5px);
+}
+
+/* Футер */
+footer {
+  background: #0d3b66;
+  color: #e6f1ff;
+  padding: 30px 5%;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Карточки */
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  margin-bottom: 30px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
