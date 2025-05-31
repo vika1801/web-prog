@@ -168,3 +168,220 @@ document.addEventListener('DOMContentLoaded', () => {
         setupNewsPage();
     }
 });
+// Общие функции
+// ... (код из предыдущих страниц)
+
+// Функции для страницы курса валют
+async function loadCurrencyData() {
+    try {
+        // Загрузка текущего курса
+        const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
+        const data = await response.json();
+        
+        // Получаем курс EGP (Египетский фунт)
+        const egpRate = data.Valute.EGP.Value;
+        const prevRate = data.Valute.EGP.Previous;
+        
+        // Обновляем интерфейс
+        document.getElementById('current-rate').textContent = egpRate.toFixed(2);
+        
+        // Рассчитываем изменение
+        const change = egpRate - prevRate;
+        const changePercent = ((change / prevRate) * 100).toFixed(1);
+        
+        const changeElement = document.getElementById('rate-change');
+        changeElement.querySelector('span').textContent = 
+            `${change >= 0 ? '+' : ''}${change.toFixed(2)} (${changePercent}%)`;
+        
+        // Обновляем иконку
+        const icon = changeElement.querySelector('i');
+        icon.className = change >= 0 ? 'fas fa-arrow-up' : 'fas fa-arrow-down';
+        
+        // Время обновления
+        const updateDate = new Date(data.Date);
+        document.getElementById('update-time').textContent = 
+            `Сегодня, ${updateDate.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'})}`;
+        
+        // Инициализация калькулятора
+        setupCurrencyCalculator(egpRate);
+        
+        // Загрузка данных для графика
+        loadHistoricalData(30);
+        
+    } catch (error) {
+        console.error('Ошибка загрузки данных:', error);
+        alert('Не удалось загрузить данные о курсе валют. Пожалуйста, попробуйте позже.');
+    }
+}
+
+function setupCurrencyCalculator(egpRate) {
+    const rubInput = document.getElementById('rub-input');
+    const egpOutput = document.getElementById('egp-output');
+    const egpInput = document.getElementById('egp-input');
+    const rubOutput = document.getElementById('rub-output');
+    
+    // Рубли → Египетские фунты
+    rubInput.addEventListener('input', () => {
+        const rub = parseFloat(rubInput.value) || 0;
+        egpOutput.value = (rub / egpRate).toFixed(2);
+    });
+    
+    // Египетские фунты → Рубли
+    egpInput.addEventListener('input', () => {
+        const egp = parseFloat(egpInput.value) || 0;
+        rubOutput.value = (egp * egpRate).toFixed(2);
+    });
+    
+    // Инициализация первого расчета
+    rubInput.dispatchEvent(new Event('input'));
+}
+
+async function loadHistoricalData(days) {
+    try {
+        // Создаем массив дат за последние N дней
+        const dates = [];
+        const today = new Date();
+        
+        for (let i = days; i >= 1; i--) {
+            const date = new Date();
+            date.setDate(today.getDate() - i);
+            dates.push(date);
+        }
+        
+        // Собираем данные о курсе
+        const rates = [];
+        const labels = [];
+        
+        for (const date of dates) {
+            const formattedDate = date.toISOString().split('T')[0];
+            const url = `https://www.cbr-xml-daily.ru/archive/${date.getFullYear()}/${String(date.getMonth()+1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}/daily_json.js`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) continue; // Пропускаем если нет данных
+                
+                const data = await response.json();
+                if (data.Valute && data.Valute.EGP) {
+                    rates.push(data.Valute.EGP.Value);
+                    labels.push(moment(date).format('DD MMM'));
+                }
+            } catch (error) {
+                console.warn(`Ошибка загрузки данных за ${formattedDate}:`, error);
+            }
+        }
+        
+        // Рассчитываем статистику
+        const minRate = Math.min(...rates).toFixed(2);
+        const maxRate = Math.max(...rates).toFixed(2);
+        const avgRate = (rates.reduce((a, b) => a + b, 0) / rates.length).toFixed(2);
+        
+        document.getElementById('min-rate').textContent = `${minRate} ₽`;
+        document.getElementById('max-rate').textContent = `${maxRate} ₽`;
+        document.getElementById('avg-rate').textContent = `${avgRate} ₽`;
+        
+        // Строим график
+        renderCurrencyChart(labels, rates);
+        
+    } catch (error) {
+        console.error('Ошибка загрузки исторических данных:', error);
+    }
+}
+
+function renderCurrencyChart(labels, rates) {
+    const ctx = document.getElementById('currency-chart').getContext('2d');
+    
+    // Удаляем предыдущий график если был
+    if (window.currencyChart) {
+        window.currencyChart.destroy();
+    }
+    
+    window.currencyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Курс EGP (руб)',
+                data: rates,
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Курс: ${context.parsed.y.toFixed(2)} ₽`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Рублей за 1 EGP'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Дата'
+                    }
+                }
+            },
+            onClick: (e, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const date = labels[index];
+                    const rate = rates[index].toFixed(2);
+                    
+                    // Сбрасываем выделение
+                    window.currencyChart.data.datasets[0].backgroundColor = 
+                        window.currencyChart.data.datasets[0].backgroundColor.map(() => 'rgba(59, 130, 246, 0.7)');
+                    
+                    // Выделяем выбранный столбец
+                    window.currencyChart.data.datasets[0].backgroundColor[index] = 'rgba(16, 185, 129, 0.9)';
+                    window.currencyChart.update();
+                    
+                    alert(`Курс EGP на ${date}: ${rate} рублей`);
+                }
+            }
+        }
+    });
+}
+
+function setupChartButtons() {
+    const buttons = document.querySelectorAll('.chart-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Убираем активный класс у всех кнопок
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Добавляем активный класс текущей кнопке
+            this.classList.add('active');
+            
+            // Загружаем данные за выбранный период
+            const days = parseInt(this.dataset.period);
+            loadHistoricalData(days);
+        });
+    });
+}
+
+// В основном обработчике DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (код из предыдущих страниц)
+    
+    // Инициализация страницы курса валют
+    if (document.getElementById('currency-chart')) {
+        // Загрузка данных будет инициирована через loadCurrencyData()
+    }
+});

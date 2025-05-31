@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании МКПАО ЮМГ</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <header class="fixed-header">
+        <div class="logo">
+            <img src="logo.jpg" alt="Логотип">
+            <span>МКПАО ЮМГ</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><a href="company.html">О компании</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="currency.html">Курс валют</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="video.html">Видео</a></li>
+            </ul>
+        </nav>
+    </header>
+
+     <main class="container">
+        <h1>Курс Египетского фунта (EGP)</h1>
+        
+        <div class="current-rate">
+            <div class="rate-card">
+                <div class="currency-flag">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>EGP</span>
+                </div>
+                <div class="rate-info">
+                    <span class="rate-value" id="current-rate">3.24</span>
+                    <span class="rate-label">рублей за 1 EGP</span>
+                </div>
+                <div class="rate-change" id="rate-change">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+0.05 (1.5%)</span>
+                </div>
+            </div>
+            <div class="rate-update">
+                <i class="fas fa-sync-alt"></i>
+                <span>Обновлено: <span id="update-time">Сегодня, 10:30</span></span>
+            </div>
+        </div>
+        
+        <div class="currency-converter">
+            <h2><i class="fas fa-calculator"></i> Калькулятор валют</h2>
+            
+            <div class="converter-row">
+                <div class="input-group">
+                    <label>Российский рубль (RUB)</label>
+                    <div class="input-container">
+                        <input type="number" id="rub-input" placeholder="0.00" value="1000">
+                        <span class="currency-symbol">₽</span>
+                    </div>
+                </div>
+                
+                <div class="conversion-arrow">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="input-group">
+                    <label>Египетский фунт (EGP)</label>
+                    <div class="input-container">
+                        <input type="number" id="egp-output" placeholder="0.00" readonly>
+                        <span class="currency-symbol">£</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="converter-row reverse">
+                <div class="input-group">
+                    <label>Египетский фунт (EGP)</label>
+                    <div class="input-container">
+                        <input type="number" id="egp-input" placeholder="0.00">
+                        <span class="currency-symbol">£</span>
+                    </div>
+                </div>
+                
+                <div class="conversion-arrow">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="input-group">
+                    <label>Российский рубль (RUB)</label>
+                    <div class="input-container">
+                        <input type="number" id="rub-output" placeholder="0.00" readonly>
+                        <span class="currency-symbol">₽</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2><i class="fas fa-chart-bar"></i> Динамика курса за месяц</h2>
+            <div class="chart-actions">
+                <button class="chart-btn active" data-period="7">7 дней</button>
+                <button class="chart-btn" data-period="30">30 дней</button>
+                <button class="chart-btn" data-period="90">90 дней</button>
+            </div>
+            <canvas id="currency-chart"></canvas>
+            
+            <div class="chart-info" id="chart-info">
+                <div class="info-box">
+                    <span>Минимум:</span>
+                    <strong id="min-rate">3.18 ₽</strong>
+                </div>
+                <div class="info-box">
+                    <span>Максимум:</span>
+                    <strong id="max-rate">3.32 ₽</strong>
+                </div>
+                <div class="info-box">
+                    <span>Среднее:</span>
+                    <strong id="avg-rate">3.25 ₽</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="currency-info">
+            <h2><i class="fas fa-info-circle"></i> О египетском фунте</h2>
+            <p>Египетский фунт (EGP) - официальная валюта Арабской Республики Египет. Один фунт состоит из 100 пиастров. Банкноты выпускаются номиналом 1, 5, 10, 20, 50, 100 и 200 фунтов.</p>
+            <p>Курс египетского фунта к рублю важен для нашей компании, так как ЮМГ активно сотрудничает с египетскими партнерами в сфере поставок промышленного оборудования и сырья.</p>
+        </div>
+    </main>
+
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/ru.min.js"></script>
+    <script src="js/scripts.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrencyData();
+            setupChartButtons();
+        });
+    </script>
+</body>
+</html>
