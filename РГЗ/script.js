@@ -111,3 +111,60 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 });
+// Функция для работы с новостями
+function setupNewsPage() {
+    const showMoreButtons = document.querySelectorAll('.show-more');
+    
+    showMoreButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const newsCard = this.closest('.news-card');
+            const preview = newsCard.querySelector('.news-preview');
+            const fullText = newsCard.querySelector('.news-full');
+            
+            if (fullText.style.display === 'none' || !fullText.style.display) {
+                fullText.style.display = 'block';
+                preview.style.display = 'none';
+                this.textContent = 'Свернуть';
+            } else {
+                fullText.style.display = 'none';
+                preview.style.display = 'block';
+                this.textContent = 'Показать полностью';
+            }
+        });
+    });
+}
+
+// В основном обработчике DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Кнопка "Наверх"
+    const toTopBtn = document.querySelector('.to-top');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            toTopBtn.style.display = 'flex';
+        } else {
+            toTopBtn.style.display = 'none';
+        }
+    });
+    
+    toTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Подсветка активного пункта меню
+    const currentPage = location.pathname.split('/').pop();
+    document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Инициализация новостей, если на странице
+    if (document.querySelector('.news-grid')) {
+        setupNewsPage();
+    }
+});
