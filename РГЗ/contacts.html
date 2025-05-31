@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Контакты | ЮМГ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании МКПАО ЮМГ</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <header class="fixed-header">
         <div class="logo">
-            <img src="https://bcs-express.ru/static/images/logo.svg" alt="ЮМГ">
-            <span>ЮМГ</span>
+            <img src="logo.jpg" alt="Логотип">
+            <span>МКПАО ЮМГ</span>
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">О компании</a></li>
+                <li><a href="company.html">О компании</a></li>
                 <li><a href="news.html">Новости</a></li>
                 <li><a href="currency.html">Курс валют</a></li>
                 <li class="active"><a href="contacts.html">Контакты</a></li>
@@ -22,36 +26,156 @@
         </nav>
     </header>
 
-    <main class="contacts-section">
-        <h1>Контакты ЮМГ</h1>
+    
+    <main class="container">
+        <h1>Контактная информация</h1>
         
+        <!-- Контактные данные -->
         <div class="contact-info">
-            <div class="contact-details">
-                <h2>Головной офис</h2>
-                <p><strong>Адрес:</strong> Москва, Пресненская наб., д. 10, башня "Запад"</p>
-                <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
-                <p><strong>Email:</strong> info@gemc.ru</p>
-                
-                <h2>Отдел инвесторов</h2>
-                <p><strong>Телефон:</strong> +7 (495) 123-45-68</p>
-                <p><strong>Email:</strong> investors@gemc.ru</p>
-                
-                <h2>Пресс-служба</h2>
-                <p><strong>Телефон:</strong> +7 (495) 123-45-69</p>
-                <p><strong>Email:</strong> press@gemc.ru</p>
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Главный офис</h3>
+                    <p>123456, г. Москва, ул. Промышленная, д. 15, стр. 2</p>
+                    <p>Бизнес-центр "Индустриальный", 7 этаж</p>
+                </div>
             </div>
             
-            <div class="map-container">
-                <h2>Мы на карте</h2>
-                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A8e6b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b&amp;source=constructor" 
-                        width="100%" 
-                        height="400" 
-                        frameborder="0"
-                        style="border-radius: 8px; border: 1px solid #e2e8f0;"></iframe>
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Телефоны</h3>
+                    <p>+7 (495) 123-45-67 - общий отдел</p>
+                    <p>+7 (495) 123-45-68 - отдел продаж</p>
+                    <p>+7 (495) 123-45-69 - служба поддержки</p>
+                </div>
             </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Электронная почта</h3>
+                    <p>info@gemc.ru - общие вопросы</p>
+                    <p>sales@gemc.ru - отдел продаж</p>
+                    <p>support@gemc.ru - техническая поддержка</p>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Режим работы</h3>
+                    <p>Понедельник-пятница: 9:00 - 18:00</p>
+                    <p>Суббота: 10:00 - 15:00</p>
+                    <p>Воскресенье: выходной</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Карта -->
+        <div class="map-section">
+            <h2><i class="fas fa-map"></i> Наше местоположение</h2>
+            <div class="map-container">
+                <!-- Яндекс Карта -->
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae8c2e9b1f8e2d7a4a9d8e5b3d7e8c5d3e&amp;source=constructor" 
+                    width="100%" 
+                    height="500" 
+                    frameborder="0"
+                    style="border-radius: 10px;"
+                    allowfullscreen="true">
+                </iframe>
+            </div>
+            
+            <div class="transport-info">
+                <div class="transport-card">
+                    <i class="fas fa-subway"></i>
+                    <h4>Метро</h4>
+                    <p>Станция "Промышленная" (красная линия)</p>
+                    <p>Станция "Индустриальная" (синяя линия)</p>
+                </div>
+                
+                <div class="transport-card">
+                    <i class="fas fa-bus"></i>
+                    <h4>Автобусы</h4>
+                    <p>№ 123, 456 - остановка "Бизнес-центр"</p>
+                    <p>№ 789 - остановка "Ул. Промышленная"</p>
+                </div>
+                
+                <div class="transport-card">
+                    <i class="fas fa-car"></i>
+                    <h4>Парковка</h4>
+                    <p>Бесплатная парковка для клиентов</p>
+                    <p>Подземный паркинг (вход с ул. Заводская)</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Форма обратной связи -->
+        <div class="contact-form">
+            <h2><i class="fas fa-comments"></i> Обратная связь</h2>
+            <form id="feedback-form">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Тема сообщения</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Выберите тему</option>
+                        <option value="sales">Коммерческое предложение</option>
+                        <option value="support">Техническая поддержка</option>
+                        <option value="partnership">Сотрудничество</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Отправить сообщение
+                    </button>
+                </div>
+            </form>
         </div>
     </main>
 
-    <a href="#" class="to-top">↑</a>
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="js/scripts.js"></script>
+    <script>
+        // Обработка формы обратной связи
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // В реальном приложении здесь была бы отправка на сервер
+            alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>

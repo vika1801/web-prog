@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Видео | ЮМГ</title>
+    <meta charset="UTF-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании МКПАО ЮМГ</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="icon" href="favicon-16x16.ico">
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <header class="fixed-header">
         <div class="logo">
-            <img src="https://bcs-express.ru/static/images/logo.svg" alt="ЮМГ">
-            <span>ЮМГ</span>
+            <img src="logo.jpg" alt="Логотип">
+            <span>МКПАО ЮМГ</span>
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">О компании</a></li>
+                <li><a href="company.html">О компании</a></li>
                 <li><a href="news.html">Новости</a></li>
                 <li><a href="currency.html">Курс валют</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
@@ -22,29 +26,40 @@
         </nav>
     </header>
 
-    <main class="video-section">
+    <main class="container">
         <h1>Видео о компании ЮМГ</h1>
         
-        <div class="video-container">
-            <div class="video-wrapper">
-                <iframe width="100%" 
-                        height="500" 
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen></iframe>
+        <div class="featured-video">
+            <h2><i class="fas fa-play-circle"></i> Видео о МКПАО ЮМГ</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/watch?v=JSU-ApmcAuM" 
+                    title="Корпоративный фильм ЮМГ" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
-            
             <div class="video-description">
-                <h2>ЮМГ: Технологии будущего сегодня</h2>
-                <p>Корпоративный фильм о деятельности компании ЮМГ, наших инновациях и перспективах развития на ближайшие 5 лет. Узнайте, как мы создаем технологии, меняющие мир финансов и инвестиций.</p>
-                <p><strong>Дата публикации:</strong> 10 апреля 2024 года</p>
-                <p><strong>Длительность:</strong> 8:45 минут</p>
+                <p>В этом фильме вы узнаете о истории создания компании ЮМГ, наших производственных мощностях, инновационных разработках и планах на будущее. Документальный фильм охватывает все аспекты деятельности компании за последние 5 лет.</p>
+                <div class="video-meta">
+                    <span><i class="fas fa-calendar-alt"></i> Опубликовано: 14 мая 2024</span>
+                    <span><i class="fas fa-clock"></i> Длительность: 11:54</span>
+                </div>
             </div>
+        </div>
+        
+        <!-- Краткое описание компании -->
+        <div class="company-summary">
+            <h2><i class="fas fa-info-circle"></i> О компании ЮМГ</h2>
+            <p><strong>МКПАО "ЮМГ"</strong> - ведущая компания в своей отрасли, специализирующаяся на инновационных решениях и высокотехнологичных продуктах. Наша миссия - создавать ценность для клиентов через передовые технологии и качественные услуги.</p>
+            <p>Компания основана в 2023 году и за время своего существования зарекомендовала себя как надежный партнер и лидер в своей сфере. Мы гордимся нашей командой профессионалов и нашими достижениями.</p>
         </div>
     </main>
 
-    <a href="#" class="to-top">↑</a>
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="js/scripts.js"></script>
 </body>
 </html>
